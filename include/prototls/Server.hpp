@@ -14,22 +14,48 @@
 #include <vector>
 #include <deque>
 namespace prototls {
+    /** Server class template for implementing 
+        asynchronous servers that send and receive protobuf messages
+        with/without encrypted communication. TLS handshakes
+        are performed in separate threads in order to avoid blocking 
+        for long time. */
     template <class PeerT>
         class Server {
+            /** socket that accepts connections */
             boost::scoped_ptr<Socket> sock;
+
+            /** connected peers are stored in a vector holding
+              boost shared pointers to simplify memory management */
             typedef std::vector< boost::shared_ptr<PeerT> > Peers;
+
+            /** connected peers */
             Peers peers;
+
+            /** a pool of threads for TLS handshakes */
             boost::threadpool::pool pool;
+
+            /** thread safe deque that holds fresh TLS sockets */
             TSDeque<Socket*> socketsReady;
+
+            /** this method is called when a peer can read a packet */
             virtual void onPacket(PeerT&p) = 0;
+
+            /** this method is called when a new peer joins (after TLS
+              handshake if encrypted communication is used) */
             virtual void onJoin(PeerT&p) = 0;
+
+            /** this method is called when a peer leaves */
             virtual void onLeave(PeerT& p) = 0;
+
+            /** performs TLS handshake on the socket and
+             adds it to the list of ready sockets */
             void handshake(Socket* sock) {
                 if (sock->handshake()) {
                     return;
                 }
                 socketsReady.push_back(sock);
             }
+            /** flag marking that the server has been closed */
             bool closed;
         public:
             Server(int threads=16) : pool(threads), closed(false) {
