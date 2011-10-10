@@ -21,6 +21,8 @@ The most important features are in place and the implementation is ready for tes
 
 ## Quick Start
 
+### Step 0 : Compile the library with [CMake](http://www.cmake.org/)
+
 ### Step 1 : Write the protocol description
     package my_protocol;
     message Hello {
