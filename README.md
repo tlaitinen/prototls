@@ -23,7 +23,7 @@ The most important features are in place and the implementation is ready for tes
 
 ### Step 1 : Write the protocol description
     package my_protocol;
-    
+```    
     message Hello {
         required string greeting = 1;
     }
@@ -37,12 +37,12 @@ The most important features are in place and the implementation is ready for tes
         optional Hello hello = 1;
         // ... other message types ...
     }
-
+```
 and run the protoc code generator:
 `protoc --cpp_out=. my_protocol.proto`
 
 ### Step 2 : Write server code
-
+```
     #include "prototls.hpp"
     #include "my_protocol.pb.h"
     
@@ -90,9 +90,9 @@ and run the protoc code generator:
         server.serve(true, 1234, 1024);  
         return 0;
     }
-
+```
 ### Step 3 : Write client code
-
+```
     #include "prototls.hpp"
     #include "my_protocol.pb.h"
     int main(int argc, char** argv) {
@@ -156,5 +156,5 @@ and run the protoc code generator:
         }
         return 0;
     }
-
+```
 ### Step 4 : compile and deploy!
