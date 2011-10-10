@@ -12,7 +12,7 @@ An easy approach to implement portable interprocess communication using Protocol
 
 ## License 
 
-This library is distributed under the terms of [BSD license](BSD license). However, in order to use the library, you must also accept the conditions of the licenses of [Boost](http://www.boost.org), [threadpool](http://threadpool.sourceforge.net/), [GnuTLS](http://www.gnu.org/s/gnutls/), and 
+This library is distributed under the terms of [BSD license](LICENSE). However, in order to use the library, you must also accept the conditions of the licenses of [Boost](http://www.boost.org), [threadpool](http://threadpool.sourceforge.net/), [GnuTLS](http://www.gnu.org/s/gnutls/), and 
 [Protocol Buffers](http://code.google.com/apis/protocolbuffers/)
 
 ## Status 
