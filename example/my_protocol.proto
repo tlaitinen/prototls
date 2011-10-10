@@ -1,0 +1,15 @@
+package my_protocol;
+
+message Hello {
+    required string greeting = 1;
+}
+
+message ServerMessage {
+    optional Hello hello = 1;
+    // ... other message types ...
+}
+
+message ClientMessage {
+    optional Hello hello = 1;
+    // ... other message types ...
+}
