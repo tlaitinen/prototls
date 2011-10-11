@@ -1,3 +1,7 @@
+/** prototls - Portable asynchronous client/server communications C++ library 
+   
+     See LICENSE for copyright information.
+*/
 #include "prototls.hpp"
 #include <cstdio>
 #include <gnutls/x509.h>

@@ -1,3 +1,7 @@
+/** prototls - Portable asynchronous client/server communications C++ library 
+   
+     See LICENSE for copyright information.
+*/
 #ifndef _prototls_tsdeque_hpp_
 #define _prototls_tsdeque_hpp_
 #include <deque>

@@ -1,3 +1,7 @@
+/** prototls - Portable asynchronous client/server communications C++ library 
+   
+     See LICENSE for copyright information.
+*/
 #include "prototls.hpp"
 #include "my_protocol.pb.h"
 int main(int argc, char** argv) {
