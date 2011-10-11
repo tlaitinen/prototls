@@ -47,9 +47,6 @@ namespace prototls {
         : fd(0), domain(domain_), type(type_), protocol(protocol_) {
         } 
     Socket::~Socket() {
-        if (fd) {
-            // close();
-        }
     }
     void Socket::close() {
         if (fd) {

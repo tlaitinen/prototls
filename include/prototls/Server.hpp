@@ -58,10 +58,21 @@ namespace prototls {
             /** flag marking that the server has been closed */
             bool closed;
         public:
-            Server(int threads=16) : pool(threads), closed(false) {
+            /** initializes a number of threads
+              that will handle parallel TLS handshakes */
+            Server(int threads) : pool(threads), closed(false) {
             }
+
+            /** empty destructor */
             virtual ~Server() {
             }
+
+            /** accepts and keeps track of connections. reads data
+              from connected peers and notifies through virtual methods
+              if packets can be deserialized 
+             \param tls use GnuTLS for encryption 
+             \param port listen for incoming connections at this port
+             \param maxPeers maximum number of connected peers */
             void serve(bool tls, int port, int maxPeers) {
                 if (tls)
                     sock.reset(new TLSSocket());
@@ -75,13 +86,15 @@ namespace prototls {
                 while (!closed)
                 {
                     select.reset();
-                    select.input(sock->getFd());
+                    if (peers.size() < maxPeers)
+                        select.input(sock->getFd());
                     for (typename Peers::iterator i = peers.begin(); i != peers.end(); i++) {
                         select.input((*i)->getFd());
                     }
                     if (select.select(100) == -1)
                         continue;
-                    if (select.canRead(sock->getFd())) {
+                    if (select.canRead(sock->getFd()) 
+                            && peers.size() < maxPeers) {
                         try {
                             Socket* csock = sock->accept();
 
@@ -136,6 +149,8 @@ namespace prototls {
             }
 
 
+            /** sets the closed-bit to true, and the running 
+              Server::serve method will exit */
             void close() {
                 closed = true;
             }
